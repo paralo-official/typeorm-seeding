@@ -1,7 +1,8 @@
 import { Seeder } from './seeder'
-import { SeederInstanceOrClass } from './types'
+import { ClassConstructor, ExtractFactory, SeederInstanceOrClass } from './types'
 import { SeedingSource } from './seeding-source'
 import { resolveSeeders } from './utils/resolve-seeders.util'
+import { resolveFactory } from './utils/resolve-factory.util'
 
 /**
  * Runner
@@ -34,5 +35,12 @@ export class Runner {
   async fromString(classNameString: string): Promise<void> {
     const seeders = this.seedingSource.seedersFromString(classNameString)
     return this.many(seeders)
+  }
+
+  /**
+   * Return an instance of the factory for the given factory class.
+   */
+  factory<T>(factory: ClassConstructor<ExtractFactory<T>>): ExtractFactory<T> {
+    return resolveFactory(this.seedingSource, factory)
   }
 }
