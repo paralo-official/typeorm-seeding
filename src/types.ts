@@ -9,7 +9,7 @@ export type ClassConstructor<T> = new (...args: any[]) => T
 export type InstanceOrClass<T = any> = T | ClassConstructor<T>
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export type ExtractFactory<F> = F extends Factory<infer E> ? F : never
+export type ExtractFactory<F> = F extends Factory<infer E, infer C> ? F : never
 
 export type FactoryInstanceOrClass<T> = InstanceOrClass<Factory<T>>
 
