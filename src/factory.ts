@@ -4,15 +4,16 @@ import { SaveOptions } from 'typeorm'
 import { SeedingSource } from './seeding-source'
 import { isPromiseLike } from './utils/is-promise-like.util'
 import { resolveFactory } from './utils/resolve-factory.util'
+import { expectContext } from './utils/expect-context.util'
 
 /**
  * Factory
  */
-export abstract class Factory<Entity> {
+export abstract class Factory<Entity, Context extends Record<string, unknown> = Record<string, unknown>> {
   /**
    * Options
    */
-  protected options: FactoryOptions<Entity> = {}
+  protected options: FactoryOptions<Entity, Context> = {}
 
   get seedingSource() {
     if (this.optionOverrides.seedingSource instanceof SeedingSource) {
@@ -30,6 +31,10 @@ export abstract class Factory<Entity> {
     return this.optionOverrides.override ?? this.options.override ?? Object.getPrototypeOf(this).constructor
   }
 
+  get requiredContextKeys(): (keyof Context | (keyof Context)[])[] | undefined {
+    return this.optionOverrides.requiredContextKeys ?? this.options.requiredContextKeys
+  }
+
   /**
    * Mapping function.
    *
@@ -42,14 +47,16 @@ export abstract class Factory<Entity> {
    *
    * @param optionOverrides option overrides
    */
-  constructor(private optionOverrides: FactoryOptionsOverrides<Entity> = {}) {}
+  constructor(private optionOverrides: FactoryOptionsOverrides<Entity, Context> = {}) {}
 
   /**
    * Return an instance of entity.
    *
    * @param entity An instance of the configured entity (if provided in options)
+   * @param context
    */
-  protected async entity(entity?: Entity): Promise<Entity> {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected async entity(entity?: Entity, context?: Context): Promise<Entity> {
     if (entity) {
       return entity
     } else {
@@ -63,8 +70,10 @@ export abstract class Factory<Entity> {
    * This method is called after all maps and overrides have been applied
    *
    * @param entity An instance of the entity
+   * @param context
    */
-  protected async finalize(entity: Entity): Promise<void> {} // eslint-disable-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
+  protected async finalize(entity: Entity, context?: Context): Promise<void> {}
 
   /**
    * This function is used to alter the generated values of entity,
@@ -78,17 +87,17 @@ export abstract class Factory<Entity> {
   /**
    * Make a new entity without persisting it
    */
-  async make(overrideParams: Partial<Entity> = {}): Promise<Entity> {
-    return this.makeEntity(overrideParams, false)
+  async make(overrideParams: Partial<Entity> = {}, context = {} as Context): Promise<Entity> {
+    return this.makeEntity(overrideParams, context, false)
   }
 
   /**
    * Make many new entities without persisting it
    */
-  async makeMany(amount: number, overrideParams: Partial<Entity> = {}): Promise<Entity[]> {
+  async makeMany(amount: number, overrideParams: Partial<Entity> = {}, context = {} as Context): Promise<Entity[]> {
     const list = []
     for (let index = 0; index < amount; index++) {
-      list[index] = await this.make(overrideParams)
+      list[index] = await this.make(overrideParams, context)
     }
     return list
   }
@@ -96,9 +105,13 @@ export abstract class Factory<Entity> {
   /**
    * Create a new entity and persist it
    */
-  async create(overrideParams: Partial<Entity> = {}, saveOptions?: SaveOptions): Promise<Entity> {
+  async create(
+    overrideParams: Partial<Entity> = {},
+    context = {} as Context,
+    saveOptions?: SaveOptions,
+  ): Promise<Entity> {
     // make the entity
-    const entity = await this.makeEntity(overrideParams, true, saveOptions)
+    const entity = await this.makeEntity(overrideParams, context, true, saveOptions)
     // save it
     return this.save(entity, saveOptions)
   }
@@ -131,10 +144,15 @@ export abstract class Factory<Entity> {
   /**
    * Create many new entities and persist them
    */
-  async createMany(amount: number, overrideParams: Partial<Entity> = {}, saveOptions?: SaveOptions): Promise<Entity[]> {
+  async createMany(
+    amount: number,
+    overrideParams: Partial<Entity> = {},
+    context = {} as Context,
+    saveOptions?: SaveOptions,
+  ): Promise<Entity[]> {
     const list = []
     for (let index = 0; index < amount; index++) {
-      list[index] = await this.create(overrideParams, saveOptions)
+      list[index] = await this.create(overrideParams, context, saveOptions)
     }
     return list
   }
@@ -145,12 +163,17 @@ export abstract class Factory<Entity> {
 
   private async makeEntity(
     overrideParams: Partial<Entity>,
+    context = {} as Context,
     persist: boolean,
     saveOptions?: SaveOptions,
   ): Promise<Entity> {
+    if (this.requiredContextKeys) {
+      expectContext<Context>(context, ...this.requiredContextKeys)
+    }
+
     const entityClass = this.entityClass()
 
-    const entity = await this.entity(entityClass ? new entityClass() : undefined)
+    const entity = await this.entity(entityClass ? new entityClass() : undefined, context)
 
     if (this.mapFunction) {
       await this.mapFunction(entity)
@@ -163,7 +186,7 @@ export abstract class Factory<Entity> {
 
     const resolvedEntity = await this.resolveEntity(entity, persist, saveOptions)
 
-    await this.finalize(resolvedEntity)
+    await this.finalize(resolvedEntity, context)
 
     return resolvedEntity
   }

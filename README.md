@@ -694,12 +694,13 @@ const user = await factory.create()
 All `Factory` overrides are supported via the constructor for just-in-time operations.
 
 ```typescript
-constructor(optionOverrides?: FactoryOptionsOverrides<Entity>);
+constructor(optionOverrides?: FactoryOptionsOverrides<Entity, Context>);
 ```
 
 ```typescript
-interface FactoryOptionsOverrides<T, SF = any> {
-  entity?: ClassConstructor<T>
+interface FactoryOptionsOverrides<Entity, Context, SF = any> {
+  entity?: ClassConstructor<Entity>
+  requiredContextKeys?: (keyof Context | (keyof Context)[])[]
   factories?: ExtractFactory<SF>[]
   override?: ClassConstructor<Factory<any>>
   seedingSource?: SeedingSource

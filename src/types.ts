@@ -8,6 +8,7 @@ export type ClassConstructor<T> = new (...args: any[]) => T
 
 export type InstanceOrClass<T = any> = T | ClassConstructor<T>
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export type ExtractFactory<F> = F extends Factory<infer E> ? F : never
 
 export type FactoryInstanceOrClass<T> = InstanceOrClass<Factory<T>>
@@ -24,16 +25,20 @@ export interface SeederOptionsOverrides<SF = any> {
   seedingSource?: SeedingSource
 }
 
-export interface FactoryOptions<T> {
-  entity?: ClassConstructor<T>
+export interface FactoryOptions<Entity, Context> {
+  entity?: ClassConstructor<Entity>
+  /**
+   * All required context keys. Can also include an array as an element, specifying similar
+   * context keys of which having at least one is required. Example: `["order", "orderId"]` requires at least the
+   * `order` or the `orderId` to be present.
+   */
+  requiredContextKeys?: (keyof Context | (keyof Context)[])[]
   override?: ClassConstructor<Factory<any>>
 }
 
-export interface FactoryOptionsOverrides<T, SF = any> {
-  entity?: ClassConstructor<T>
+export interface FactoryOptionsOverrides<Entity, Context, SF = any> extends FactoryOptions<Entity, Context> {
   factories?: ExtractFactory<SF>[]
   seedingSource?: SeedingSource
-  override?: ClassConstructor<Factory<any>>
 }
 
 export interface SeedingSourceOptions {
