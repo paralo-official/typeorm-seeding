@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/paralo-official/typeorm-seeding/compare/v1.0.0...v1.0.1) (2023-01-16)
+
+
+### Bug Fixes
+
+* set github auth and .npmrc ([8e2989d](https://github.com/paralo-official/typeorm-seeding/commit/8e2989d8433e6a99fdc5f92685b9a4289e27005d))
+
 # 1.0.0 (2023-01-16)
 
 
