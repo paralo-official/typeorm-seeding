@@ -1,6 +1,6 @@
 {
   "name": "@paralo-official/typeorm-seeding",
-  "version": "4.0.0-beta.0",
+  "version": "1.0.0",
   "description": "A simple but powerful database seeder for TypeORM ^0.3.0",
   "license": "MIT",
   "author": "Concepta (https://github.com/conceptadev)",
@@ -8,7 +8,6 @@
     "Gery Hirschfeld <gery.hirschfeld@w3tec.ch> (https://github.com/hirsch88)",
     "Jorge Bodega <jorge.bodega.f@gmail.com> (https://github.com/jorgebodega)",
     "Moritz Hein <moritz.hein@live.de> (https://moritz.website)"
-
   ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
