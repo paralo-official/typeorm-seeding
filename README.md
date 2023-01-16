@@ -1,7 +1,7 @@
 <p align="center">
   <img src="./logo.png" alt="logo" width="160" />
 </p>
-<h1 align="center" style="text-align: center;">TypeORM Seeding</h1>
+<h1 align="center" style="text-align: center;">TypeORM Seeding with context</h1>
 
 <p align="center">
   <img alt="NPM" src="https://img.shields.io/npm/l/@concepta/typeorm-seeding?style=for-the-badge">
@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  <b>A simple but powerful database seeder for TypeORM ^0.3.0</b></br>
+  <b>A simple but powerful database seeder for TypeORM ^0.3.11</b></br>
 </p>
 
 <p align="center">
