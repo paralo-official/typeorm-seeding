@@ -7,7 +7,7 @@
   "contributors": [
     "Gery Hirschfeld <gery.hirschfeld@w3tec.ch> (https://github.com/hirsch88)",
     "Jorge Bodega <jorge.bodega.f@gmail.com> (https://github.com/jorgebodega)",
-    "Moritz Hein <moritz.hein@live.de> (https://moritz.website)",
+    "Moritz Hein <moritz.hein@live.de> (https://moritz.website)"
 
   ],
   "main": "dist/index.js",
