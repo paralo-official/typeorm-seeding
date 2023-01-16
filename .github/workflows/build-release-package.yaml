@@ -19,10 +19,10 @@ jobs:
       - uses: pnpm/action-setup@v2.2.2
         with:
           version: 7
-      - name: Use Node.js 16
+      - name: Use Node.js 18
         uses: actions/setup-node@v2
         with:
-          node-version: 16
+          node-version: 18
           cache: 'pnpm'
           registry-url: https://npm.pkg.github.com/
 
