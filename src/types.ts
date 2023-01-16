@@ -25,7 +25,7 @@ export interface SeederOptionsOverrides<SF = any> {
   seedingSource?: SeedingSource
 }
 
-export interface FactoryOptions<Entity, Context> {
+export interface FactoryOptions<Entity, Context extends Record<string, unknown> = Record<string, unknown>> {
   entity?: ClassConstructor<Entity>
   /**
    * All required context keys. Can also include an array as an element, specifying similar
@@ -36,7 +36,11 @@ export interface FactoryOptions<Entity, Context> {
   override?: ClassConstructor<Factory<any>>
 }
 
-export interface FactoryOptionsOverrides<Entity, Context, SF = any> extends FactoryOptions<Entity, Context> {
+export interface FactoryOptionsOverrides<
+  Entity,
+  Context extends Record<string, unknown> = Record<string, unknown>,
+  SF = any,
+> extends FactoryOptions<Entity, Context> {
   factories?: ExtractFactory<SF>[]
   seedingSource?: SeedingSource
 }
