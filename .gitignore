@@ -28,3 +28,6 @@ old
 
 ### Arch linux error ###
 ~
+
+### Ignore IDEA/Webstorm configs ###
+.idea
