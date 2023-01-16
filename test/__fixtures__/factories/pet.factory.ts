@@ -8,7 +8,7 @@ export class PetFactory extends Factory<Pet> {
   protected options: FactoryOptions<Pet> = { entity: Pet }
 
   protected async entity(pet: Pet): Promise<Pet> {
-    pet.name = faker.name.findName()
+    pet.name = faker.name.fullName()
     return pet
   }
 

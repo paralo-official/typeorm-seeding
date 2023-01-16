@@ -6,7 +6,7 @@ export class UserFactory extends Factory<User> {
   protected options = { entity: User }
 
   protected async entity(user: User): Promise<User> {
-    user.name = faker.name.findName()
+    user.name = faker.name.fullName()
     return user
   }
 }
