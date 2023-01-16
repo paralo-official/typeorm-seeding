@@ -33,7 +33,7 @@ specifiers:
   ts-jest: 27.1.2
   ts-node: 10.4.0
   tslib: ^2.4.1
-  typeorm: 0.3.6
+  typeorm: 0.3.11
   typescript: 4.5.4
   yargs: ^17.3.0
 
@@ -70,7 +70,7 @@ devDependencies:
   sqlite3: 5.0.2
   ts-jest: 27.1.2_snspflilpnt7acsnbaogmldioe
   ts-node: 10.4.0_ycumufznwlhippdr6gq4wezpza
-  typeorm: 0.3.6_vh6cxbkk5xyozrju7qvu7x7s7e
+  typeorm: 0.3.11_vh6cxbkk5xyozrju7qvu7x7s7e
   typescript: 4.5.4
 
 packages:
@@ -5866,18 +5866,18 @@ packages:
       is-typedarray: 1.0.0
     dev: true
 
-  /typeorm/0.3.6_vh6cxbkk5xyozrju7qvu7x7s7e:
-    resolution: {integrity: sha512-DRqgfqcelMiGgWSMbBmVoJNFN2nPNA3EeY2gC324ndr2DZoGRTb9ILtp2oGVGnlA+cu5zgQ6it5oqKFNkte7Aw==}
+  /typeorm/0.3.11_vh6cxbkk5xyozrju7qvu7x7s7e:
+    resolution: {integrity: sha512-pzdOyWbVuz/z8Ww6gqvBW4nylsM0KLdUCDExr2gR20/x1khGSVxQkjNV/3YqliG90jrWzrknYbYscpk8yxFJVg==}
     engines: {node: '>= 12.9.0'}
     hasBin: true
     peerDependencies:
       '@google-cloud/spanner': ^5.18.0
-      '@sap/hana-client': ^2.11.14
-      better-sqlite3: ^7.1.2
+      '@sap/hana-client': ^2.12.25
+      better-sqlite3: ^7.1.2 || ^8.0.0
       hdb-pool: ^0.1.6
-      ioredis: ^4.28.3
+      ioredis: ^5.0.4
       mongodb: ^3.6.0
-      mssql: ^6.3.1
+      mssql: ^7.3.0
       mysql2: ^2.2.5
       oracledb: ^5.1.0
       pg: ^8.5.1
@@ -5885,7 +5885,7 @@ packages:
       pg-query-stream: ^4.0.0
       redis: ^3.1.1 || ^4.0.0
       sql.js: ^1.4.0
-      sqlite3: ^5.0.2
+      sqlite3: ^5.0.3
       ts-node: ^10.7.0
       typeorm-aurora-data-api-driver: ^2.0.0
     peerDependenciesMeta:
