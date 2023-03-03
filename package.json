@@ -1,6 +1,6 @@
 {
   "name": "@paralo-official/typeorm-seeding",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A simple but powerful database seeder for TypeORM ^0.3.0",
   "license": "MIT",
   "author": "Concepta (https://github.com/conceptadev)",
