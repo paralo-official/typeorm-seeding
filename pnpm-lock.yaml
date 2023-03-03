@@ -33,7 +33,7 @@ specifiers:
   ts-jest: 27.1.2
   ts-node: 10.4.0
   tslib: ^2.4.1
-  typeorm: 0.3.11
+  typeorm: 0.3.12
   typescript: 4.5.4
   yargs: ^17.3.0
 
@@ -70,7 +70,7 @@ devDependencies:
   sqlite3: 5.0.2
   ts-jest: 27.1.2_snspflilpnt7acsnbaogmldioe
   ts-node: 10.4.0_ycumufznwlhippdr6gq4wezpza
-  typeorm: 0.3.11_vh6cxbkk5xyozrju7qvu7x7s7e
+  typeorm: 0.3.12_vh6cxbkk5xyozrju7qvu7x7s7e
   typescript: 4.5.4
 
 packages:
@@ -1633,6 +1633,12 @@ packages:
       balanced-match: 1.0.2
       concat-map: 0.0.1
 
+  /brace-expansion/2.0.1:
+    resolution: {integrity: sha512-XnAIvQ8eM+kC6aULx6wuQiwVsnzsi9d3WxzV3FpWTGA19F621kwdbsAcFKXgKUHZWsy+mY6iL1sHTxWEFCytDA==}
+    dependencies:
+      balanced-match: 1.0.2
+    dev: true
+
   /braces/3.0.2:
     resolution: {integrity: sha512-b8um+L1RzM3WDSzvhm6gIz1yfTbBt6YTlcEKAvsmqCZZFw46z626lVj9j1yEPW33H5H+lBQpZMP1k8l+78Ha0A==}
     engines: {node: '>=8'}
@@ -2876,6 +2882,17 @@ packages:
       minimatch: 3.1.2
       once: 1.4.0
       path-is-absolute: 1.0.1
+
+  /glob/8.1.0:
+    resolution: {integrity: sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==}
+    engines: {node: '>=12'}
+    dependencies:
+      fs.realpath: 1.0.0
+      inflight: 1.0.6
+      inherits: 2.0.4
+      minimatch: 5.1.6
+      once: 1.4.0
+    dev: true
 
   /globals/11.12.0:
     resolution: {integrity: sha512-WOBp/EEGUiIsJSp7wcv/y6MO+lV9UoncWqxuFfm8eBwzWNgyfBd6Gz+IeKQ9jCmyhoH99g15M3T+QaVHFjizVA==}
@@ -4260,6 +4277,13 @@ packages:
     dependencies:
       brace-expansion: 1.1.11
 
+  /minimatch/5.1.6:
+    resolution: {integrity: sha512-lKwV/1brpG6mBUFHtb7NUmtABCb2WZZmm2wNiOA5hAb8VdCS4B3dtMWyvcoViccwAW/COERjXLt0zP1zXUN26g==}
+    engines: {node: '>=10'}
+    dependencies:
+      brace-expansion: 2.0.1
+    dev: true
+
   /minimist-options/4.1.0:
     resolution: {integrity: sha512-Q4r8ghd80yhO/0j1O3B2BjweX3fiHg9cdOwjJd2J76Q135c+NDxGCqdYKQ1SKBuFfgWbAUzBfvYjPUEeNgqN1A==}
     engines: {node: '>= 6'}
@@ -4293,8 +4317,8 @@ packages:
       minimist: 1.2.7
     dev: true
 
-  /mkdirp/1.0.4:
-    resolution: {integrity: sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==}
+  /mkdirp/2.1.4:
+    resolution: {integrity: sha512-Cy9cV4pRSl1o10i1dURTuRt4T04l0DkS1WZrT+Jir886OqOVkSv4FbOA7pgjhS8kEUrmm4kCRvv5var2iOCxpA==}
     engines: {node: '>=10'}
     hasBin: true
     dev: true
@@ -5780,6 +5804,11 @@ packages:
 
   /tslib/2.4.1:
     resolution: {integrity: sha512-tGyy4dAjRIEwI7BzsB0lynWgOpfqjUdq91XXAlIWD2OwKBH7oCl/GZG/HT4BOHrTlPMOASlMQ7veyTqpmRcrNA==}
+    dev: false
+
+  /tslib/2.5.0:
+    resolution: {integrity: sha512-336iVw3rtn2BUK7ORdIAHTyxHGRIHVReokCR3XjbckJMK7ms8FysBfhLR8IXnAgy7T0PTPNBWKiH514FOW/WSg==}
+    dev: true
 
   /tsutils/3.21.0_typescript@4.5.4:
     resolution: {integrity: sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==}
@@ -5866,8 +5895,8 @@ packages:
       is-typedarray: 1.0.0
     dev: true
 
-  /typeorm/0.3.11_vh6cxbkk5xyozrju7qvu7x7s7e:
-    resolution: {integrity: sha512-pzdOyWbVuz/z8Ww6gqvBW4nylsM0KLdUCDExr2gR20/x1khGSVxQkjNV/3YqliG90jrWzrknYbYscpk8yxFJVg==}
+  /typeorm/0.3.12_vh6cxbkk5xyozrju7qvu7x7s7e:
+    resolution: {integrity: sha512-sYSxBmCf1nJLLTcYtwqZ+lQIRtLPyUoO93rHTOKk9vJCyT4UfRtU7oRsJvfvKP3nnZTD1hzz2SEy2zwPEN6OyA==}
     engines: {node: '>= 12.9.0'}
     hasBin: true
     peerDependencies:
@@ -5878,7 +5907,7 @@ packages:
       ioredis: ^5.0.4
       mongodb: ^3.6.0
       mssql: ^7.3.0
-      mysql2: ^2.2.5
+      mysql2: ^2.2.5 || ^3.0.1
       oracledb: ^5.1.0
       pg: ^8.5.1
       pg-native: ^3.0.0
@@ -5932,15 +5961,15 @@ packages:
       date-fns: 2.29.3
       debug: 4.3.4
       dotenv: 16.0.3
-      glob: 7.2.3
+      glob: 8.1.0
       js-yaml: 4.1.0
-      mkdirp: 1.0.4
+      mkdirp: 2.1.4
       reflect-metadata: 0.1.13
       sha.js: 2.4.11
       sqlite3: 5.0.2
       ts-node: 10.4.0_ycumufznwlhippdr6gq4wezpza
-      tslib: 2.4.1
-      uuid: 8.3.2
+      tslib: 2.5.0
+      uuid: 9.0.0
       xml2js: 0.4.23
       yargs: 17.6.2
     transitivePeerDependencies:
@@ -6029,8 +6058,8 @@ packages:
     dev: true
     optional: true
 
-  /uuid/8.3.2:
-    resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
+  /uuid/9.0.0:
+    resolution: {integrity: sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==}
     hasBin: true
     dev: true
 
