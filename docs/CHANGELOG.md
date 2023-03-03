@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/paralo-official/typeorm-seeding/compare/v1.0.1...v1.1.0) (2023-03-03)
+
+
+### Features
+
+* return values from seeders ([5668699](https://github.com/paralo-official/typeorm-seeding/commit/56686999faee884fa5857247e938910c29d1c35f))
+
 ## [1.0.1](https://github.com/paralo-official/typeorm-seeding/compare/v1.0.0...v1.0.1) (2023-01-16)
 
 
