@@ -1,8 +1,8 @@
-import type { DataSource, DataSourceOptions } from 'typeorm'
+import type {DataSource, DataSourceOptions} from 'typeorm'
 
-import { Factory } from './factory'
-import { Seeder } from './seeder'
-import { SeedingSource } from './seeding-source'
+import {Factory} from './factory'
+import {Seeder} from './seeder'
+import {SeedingSource} from './seeding-source'
 
 export type ClassConstructor<T> = new (...args: any[]) => T
 
@@ -13,14 +13,14 @@ export type ExtractFactory<F> = F extends Factory<infer E, infer C> ? F : never
 
 export type FactoryInstanceOrClass<T> = InstanceOrClass<Factory<T>>
 
-export type SeederInstanceOrClass = InstanceOrClass<Seeder>
+export type SeederInstanceOrClass<T> = InstanceOrClass<Seeder<T>>
 
-export interface SeederOptions {
-  seeders?: SeederInstanceOrClass[]
+export interface SeederOptions<T = any> {
+  seeders?: SeederInstanceOrClass<T>[]
 }
 
-export interface SeederOptionsOverrides<SF = any> {
-  seeders?: SeederInstanceOrClass[]
+export interface SeederOptionsOverrides<SF = any, T = any> {
+  seeders?: SeederInstanceOrClass<T>[]
   factories?: ExtractFactory<SF>[]
   seedingSource?: SeedingSource
 }

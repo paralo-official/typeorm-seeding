@@ -1,13 +1,14 @@
-import { ClassConstructor, ExtractFactory, SeederInstanceOrClass, SeederOptions, SeederOptionsOverrides } from './types'
+import {ClassConstructor, ExtractFactory, SeederInstanceOrClass, SeederOptions, SeederOptionsOverrides} from './types'
 
-import { SeedingSource } from './seeding-source'
-import { resolveFactory } from './utils/resolve-factory.util'
-import { resolveSeeders } from './utils/resolve-seeders.util'
+import {SeedingSource} from './seeding-source'
+import {resolveFactory} from './utils/resolve-factory.util'
+import {resolveSeeders} from './utils/resolve-seeders.util'
+import {UnwrapSeederInstanceOrClassArray} from "./runner";
 
 /**
  * Seeder
  */
-export abstract class Seeder {
+export abstract class Seeder<T = void> {
   /**
    * Options
    */
@@ -18,7 +19,8 @@ export abstract class Seeder {
    *
    * @param optionOverrides option overrides
    */
-  constructor(private optionOverrides: SeederOptionsOverrides = {}) {}
+  constructor(private optionOverrides: SeederOptionsOverrides = {}) {
+  }
 
   get seedingSource() {
     if (this.optionOverrides.seedingSource instanceof SeedingSource) {
@@ -35,16 +37,16 @@ export abstract class Seeder {
   /**
    * Run the seeder logic.
    */
-  abstract run(): Promise<void>
+  abstract run(): Promise<T>
 
   /**
    * Helper method for running sub-seeders.
    *
    * @param seeders Array of seeders to run
    */
-  protected async call(seeders?: SeederInstanceOrClass[]): Promise<void> {
+  protected async call<T extends SeederInstanceOrClass<any>[] = SeederInstanceOrClass<any>[]>(seeders?: T): Promise<UnwrapSeederInstanceOrClassArray<T>> {
     const seedersToRun = this.seeders(seeders)
-    await this.seedingSource.run.many(seedersToRun)
+    return await this.seedingSource.run.many(seedersToRun) as UnwrapSeederInstanceOrClassArray<T>
   }
 
   /**
@@ -65,14 +67,14 @@ export abstract class Seeder {
    * 2. Seeders passed as overrides
    * 3. Seeders set as class options
    */
-  protected seeders(seeders?: SeederInstanceOrClass[]): Seeder[] {
+  protected seeders<T = void>(seeders?: SeederInstanceOrClass<T>[]): Seeder[] {
     const whichSeeders = seeders
       ? seeders
       : this.optionOverrides.seeders
-      ? this.optionOverrides.seeders
-      : this.options.seeders
-      ? this.options.seeders
-      : []
+        ? this.optionOverrides.seeders
+        : this.options.seeders
+          ? this.options.seeders
+          : []
 
     return resolveSeeders(this.seedingSource, whichSeeders)
   }

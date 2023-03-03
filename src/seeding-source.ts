@@ -39,7 +39,7 @@ export class SeedingSource {
     return this.options.defaultSeeders
   }
 
-  seedersFromString(seederNameString = ''): ClassConstructor<Seeder>[] {
+  seedersFromString(seederNameString = ''): ClassConstructor<Seeder<any>>[] {
     // resolve the seeders
     return this.resolveSeeders(seederNameString)
   }

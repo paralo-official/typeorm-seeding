@@ -1,40 +1,49 @@
-import { Seeder } from './seeder'
-import { ClassConstructor, ExtractFactory, SeederInstanceOrClass } from './types'
-import { SeedingSource } from './seeding-source'
-import { resolveSeeders } from './utils/resolve-seeders.util'
-import { resolveFactory } from './utils/resolve-factory.util'
+import {Seeder} from './seeder'
+import {ClassConstructor, ExtractFactory, SeederInstanceOrClass} from './types'
+import {SeedingSource} from './seeding-source'
+import {resolveSeeders} from './utils/resolve-seeders.util'
+import {resolveFactory} from './utils/resolve-factory.util'
+
+export type SeederInstanceOrClassReturnValue<S extends SeederInstanceOrClass<any>> = S extends SeederInstanceOrClass<infer T> ? T : void;
+export type UnwrapSeederInstanceOrClassArray<T> = {
+  [K in keyof T]: T[K] extends SeederInstanceOrClass<infer O> ? O : T[K];
+}
 
 /**
  * Runner
  */
 export class Runner {
-  constructor(readonly seedingSource: SeedingSource) {}
-
-  async all(): Promise<void> {
-    return this.many(this.seedingSource.seeders)
+  constructor(readonly seedingSource: SeedingSource) {
   }
 
-  async defaults(): Promise<void> {
+  async all<T extends any[]>(): Promise<T | void> {
+    return await this.many(this.seedingSource.seeders) as T
+  }
+
+  async defaults<T extends any[]>(): Promise<T | void> {
     if (this.seedingSource.defaultSeeders) {
-      return this.many(this.seedingSource.defaultSeeders)
+      return await this.many(this.seedingSource.defaultSeeders) as T
     }
   }
 
-  async one(seeder: SeederInstanceOrClass): Promise<void> {
-    return this.many([seeder])
+  async one<S extends SeederInstanceOrClass<any>>(seeder: S): Promise<SeederInstanceOrClassReturnValue<S>> {
+    return (await this.many([seeder]))[0] as SeederInstanceOrClassReturnValue<S>;
   }
 
-  async many(seeders: SeederInstanceOrClass[]): Promise<void> {
+  async many<T extends SeederInstanceOrClass<any>[] = SeederInstanceOrClass<void>[]>(seeders: T): Promise<UnwrapSeederInstanceOrClassArray<T>> {
     const seedersToRun: Seeder[] = resolveSeeders(this.seedingSource, seeders)
+    const seederReturnValues: unknown[] = []
 
     for (const seederToRun of seedersToRun) {
-      await seederToRun.run()
+      seederReturnValues.push(await seederToRun.run())
     }
+
+    return seederReturnValues as unknown as UnwrapSeederInstanceOrClassArray<T>
   }
 
-  async fromString(classNameString: string): Promise<void> {
+  async fromString<T extends any[]>(classNameString: string): Promise<T | void> {
     const seeders = this.seedingSource.seedersFromString(classNameString)
-    return this.many(seeders)
+    return (await this.many(seeders)) as T
   }
 
   /**

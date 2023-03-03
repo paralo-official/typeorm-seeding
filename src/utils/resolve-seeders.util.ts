@@ -1,11 +1,11 @@
-import { Seeder } from '../seeder'
-import { SeederInstanceOrClass } from '../types'
-import { SeedingSource } from '../seeding-source'
+import {Seeder} from '../seeder'
+import {SeederInstanceOrClass} from '../types'
+import {SeedingSource} from '../seeding-source'
 
 /**
  * Resolve seeders
  */
-export function resolveSeeders(seedingSource: SeedingSource, seeders: Array<SeederInstanceOrClass>): Seeder[] {
+export function resolveSeeders<T extends SeederInstanceOrClass<any>[]>(seedingSource: SeedingSource, seeders: T): Seeder[] {
   // what we will return
   const seedersToReturn: Seeder[] = []
 
